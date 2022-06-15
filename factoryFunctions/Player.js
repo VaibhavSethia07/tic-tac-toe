@@ -1,12 +1,15 @@
 import { GameArena } from "./GameArena";
 
-export const Player = (depth = -1) => {
+export const Player = (depth = -1, symbol) => {
     const maxDepth = depth;
+    const symbol = symbol;
     let nodesMap = new Map();
 
     const getMaxDepth = () => maxDepth;
 
     const getNodesMap = () => nodesMap;
+
+    const getSymbol = () => symbol;
 
     const getBestMove = (gameBoard, isMaximizing = true, depth = 0, callback = () => { }) => {
         if (depth === 0) {
@@ -87,5 +90,5 @@ export const Player = (depth = -1) => {
         }
     }
 
-    return { getMaxDepth, getNodesMap, getBestMove };
+    return { getMaxDepth, getNodesMap, getSymbol, getBestMove };
 }

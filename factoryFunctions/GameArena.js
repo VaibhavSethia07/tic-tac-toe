@@ -1,6 +1,6 @@
 export const GameArena = (board) => {
     let _board = board;
-    let _turn = "Player";
+    let _playerTurn;
 
     const setGameBoard = (board) => _board = board;
 
@@ -36,7 +36,7 @@ export const GameArena = (board) => {
         @return {Boolean} determines the outcome of insert operation 
     */
     const insert = (symbol, position) => {
-        if (![0, 1, 2, , 3, 4, 5, 6, 7, 8].includes(position)) {
+        if (![0, 1, 2, 3, 4, 5, 6, 7, 8].includes(position)) {
             return false;
         }
 
@@ -67,28 +67,28 @@ export const GameArena = (board) => {
 
         // Checking rows
         if (_board[0] && _board[0] === _board[1] && _board[0] === _board[2]) {
-            return { 'winner': _board[0], 'direction': 'H', 'row': 0 };
+            return { 'winner': _board[0], 'direction': 'H', 'row': 1 };
         }
 
         if (_board[3] && _board[3] === _board[4] && _board[3] === _board[5]) {
-            return { 'winner': _board[3], 'direction': 'H', 'row': 1 };
+            return { 'winner': _board[3], 'direction': 'H', 'row': 2 };
         }
 
         if (_board[6] && _board[6] === _board[7] && _board[6] === _board[8]) {
-            return { 'winner': _board[6], 'direction': 'H', 'row': 2 };
+            return { 'winner': _board[6], 'direction': 'H', 'row': 3 };
         }
 
         // Checking columns
         if (_board[0] && _board[0] === _board[3] && _board[0] === _board[6]) {
-            return { 'winner': _board[0], 'direction': 'V', 'column': 0 };
+            return { 'winner': _board[0], 'direction': 'V', 'column': 1 };
         }
 
         if (_board[1] && _board[1] === _board[4] && _board[1] === _board[7]) {
-            return { 'winner': _board[1], 'direction': 'V', 'column': 1 };
+            return { 'winner': _board[1], 'direction': 'V', 'column': 2 };
         }
 
         if (_board[2] && _board[2] === _board[5] && _board[2] === _board[8]) {
-            return { 'winner': _board[2], 'direction': 'V', 'column': 2 };
+            return { 'winner': _board[2], 'direction': 'V', 'column': 3 };
         }
 
         // Checking diagonals
@@ -121,15 +121,17 @@ export const GameArena = (board) => {
     }
 
     /* Toggles the turn between the player and AI */
-    const toggleTurn = () => {
-        if (_turn === "Player") {
-            _turn = "AI";
+    const togglePlayerTurn = () => {
+        if (_playerTurn === "Player") {
+            _playerTurn = "AI";
         } else {
-            _turn = "Player";
+            _playerTurn = "Player";
         }
     }
 
-    const getTurn = () => _turn;
+    const getPlayerTurn = () => _playerTurn;
+
+    const setPlayerTurn = (player) => _playerTurn = player;
 
     return {
         setGameBoard,
@@ -141,8 +143,9 @@ export const GameArena = (board) => {
         clearBoard,
         isTerminal,
         getAvailableMoves,
-        toggleTurn,
-        getTurn
+        togglePlayerTurn,
+        getPlayerTurn,
+        setPlayerTurn
     }
 
 };
